@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css">
+
+    <title>Create Link | Annoymous Message</title>
+  </head>
+  <body>
+    <!-- Navber Section -->
+    <%- include('../templates/_navber') -%> 
+    
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 m-auto">
+                <div class="card bg-info text-white text-center">
+                    <div class="card-header">Welcome, <%= user.name %></div>
+                    <div class="card-body">
+                        <div class="alert alert-success">Share this Link to your friends -  <a href="http://localhost:5000/message/user/<%= user.id %>/share/">http://localhost:5000/message/user/<%= user.id %>/share/</a></div>
+                        <h3>Message (<%= user.messages.length %>)</h3>
+                        <% if (user.messages.length === 0) {%>
+                          <div class="alert alert-danger">Inbox is Empty!</div>
+                        <% } else{%>
+                        <div class="list-group mt-3 text-dark text-left">
+                            <% user.messages.forEach(message => {%>
+                              <div class="list-group-item"><%= message%></div>
+                            <%})%>
+                        </div>
+                      <% }%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script>
+      // set the user in localstorage 
+      if(!localStorage.getItem('user')){
+        localStorage.setItem('user', 'http://localhost:5000/message/user/<%= user.id %>/');
+      }else if(localStorage.getItem('user') !== 'http://localhost:5000/message/user/<%= user.id %>/'){
+        location.replace(localStorage.getItem('user'));
+        // console.log()
+      }
+    </script>
+  </body>
+</html>
